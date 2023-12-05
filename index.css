@@ -62,3 +62,24 @@ nav a {
 nav a:hover {
     color: #00BFFF;
 }
+
+
+@media screen and (max-width: 600px) {
+    body {
+        font-size: 14px;
+    }
+
+    ul {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    header img {
+        width: 100%;
+        height: auto;
+    }
+
+    .container {
+        padding: 0 20px;
+    }
+}

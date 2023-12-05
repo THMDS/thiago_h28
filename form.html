@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Contato Local</title>
+    <link rel"stylesheet" href="form.css">
+</head>
+<body>
+
+    <h2>Adicione Seu Contato</h2>
+
+    <form id="listForm">
+        <label for="itemName">Nome e Numero Tel:</label>
+        <input type="text" id="itemName" name="itemName" required>
+
+        <button type="button" onclick="addItem()">Adicionar</button>
+    </form>
+    
+    <h2>Lista Com Os Contatos Cadastrados</h2>
+
+    <!-- Adicione uma lista para exibir os itens salvos -->
+    <ul id="itemList"></ul>
+
+    <script>
+        // Função para adicionar itens à lista
+        function addItem() {
+            var itemName = document.getElementById('itemName').value;
+
+            // Verifica se o armazenamento local é suportado
+            if (typeof(Storage) !== "undefined") {
+                // Obtém a lista de itens do armazenamento local (se existir)
+                var itemList = JSON.parse(localStorage.getItem('itemList')) || [];
+
+                // Adiciona o novo item à lista
+                itemList.push(itemName);
+
+                // Armazena a lista no localStorage
+                localStorage.setItem('itemList', JSON.stringify(itemList));
+
+                // Exibe a lista atualizada
+                displayItemList();
+            } else {
+                alert('Desculpe, o armazenamento local não é suportado neste navegador.');
+            }
+        }
+
+        // Função para exibir a lista de itens
+        function displayItemList() {
+            var itemList = JSON.parse(localStorage.getItem('itemList')) || [];
+            var itemListElement = document.getElementById('itemList');
+
+            // Limpa a lista antes de exibir os itens
+            itemListElement.innerHTML = '';
+
+            // Adiciona cada item à lista como um elemento de lista
+            itemList.forEach(function(item) {
+                var li = document.createElement('li');
+                li.textContent = item;
+                itemListElement.appendChild(li);
+            });
+        }
+
+        // Exibe a lista de itens ao carregar a página
+        window.onload = displayItemList;
+    </script>
+  <a href="index.html">
+    <button type="button">Voltar para a Home</button>
+</a>
+</body>
+</html>
